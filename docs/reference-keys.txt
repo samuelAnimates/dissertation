@@ -1,0 +1,8 @@
+fig:cool-plot
+intro
+what-is-health-literacy
+what-is-ai
+using-supervised-learning
+using-generative-ai
+factor-framework-to-assess-ai
+conclusion

@@ -1,9 +1,16 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "Computational Health Literacy Assessments: Potentials and Limits of AI for Health Literacy"
+author: "Samuel R. Mendez"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+link-citations: yes
+description: ""
 ---
 
-# Down the rabbit-hole
+# Intro
+
+
+## What is AI?
+
+## What is Health Literacy?
 
