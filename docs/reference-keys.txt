@@ -1,8 +1,14 @@
 fig:cool-plot
 intro
-what-is-health-literacy
+takeaways-for-health-communication
+key-terms
 what-is-ai
+what-is-health-literacy
 using-supervised-learning
 using-generative-ai
 factor-framework-to-assess-ai
 conclusion
+calls-to-action-for-health-communication
+summary-calls-to-action-for-health-communication
+overview
+calls-to-action
