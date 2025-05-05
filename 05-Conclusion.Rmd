@@ -12,11 +12,6 @@ require("magrittr")
 
 
 
-```{r cool-plot, echo=FALSE, fig.alt = "Scatterplot of flipper length by bill length of 3 penguin species", fig.cap='(ref:cool-plot)'}
-boxplot(Sepal.Length ~ Species, data = iris)
-```
-
-
 ```{r, animation.hook="gifski", echo=FALSE}
 for (i in 1:2) {
   pie(c(i %% 2, 6), col = c('red', 'yellow'), labels = NA)
