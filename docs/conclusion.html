@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="factor-framework-to-assess-ai.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -218,15 +218,15 @@
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
   "sharing": {
-    "github": false,
-    "facebook": true,
-    "twitter": true,
-    "linkedin": false,
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": true,
     "weibo": false,
     "instapaper": false,
     "vk": false,
     "whatsapp": false,
-    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+    "all": ["linkedin", "whatsapp", "github"]
   },
   "fontsettings": {
     "theme": "white",
@@ -251,7 +251,7 @@ gitbook.start({
     "options": null
   },
   "toc": {
-    "collapse": "subsection"
+    "collapse": "section"
   }
 });
 });
