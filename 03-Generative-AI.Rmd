@@ -1,20 +1,158 @@
 # Using Generative AI
 
+This page describes the results of our project using ChatGPT to scale up the [CDC Clear Communication Index](https://www.cdc.gov/ccindex/index.html). We didn’t focus on whether ChatGPT performs well as a health literacy tool. Instead, we focused on the long-term impact of using it as one.
+
+Our results show that you can't predict how tools like ChatGPT will perform over time. So, you need to hire health literacy experts and community health workers to assess its outputs. Not just once, but for as long as you are using it.
 
 ## Background
 
-### What is Supervised Learning?
+### What is generative AI?
 
-###
+“[Generative AI](https://news.mit.edu/2023/explained-generative-ai-1109)” is an approach to artificial intelligence. It focuses on making new content based on patterns in old content. A popular example is [ChatGPT](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/).
 
-###
+### How can I use generative AI for health communication?
 
-###
+That depends on who you ask. A fan might say that your imagination is the only limit. Example: you can prompt it to provide health literacy feedback on your writing. It wasn't designed for that task. But its massive training dataset might make it flexible enough to do so.
+A critic might say it’s not at all appropriate for public health. Example: it has [environmental costs](https://news.mit.edu/2025/explained-generative-ai-environmental-impact-0117). It relies on [stolen content](https://www.npr.org/2023/11/10/1197954613/openai-chatgpt-author-lawsuit-preston-martin-franzen-picoult). And [it just makes things up](https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)).
 
-## Research Questions
+### How do I know whether AI-generated content is good enough?
 
-###
+You have to test it to find out. Define a specific task you want to use it on. Example: decide whether a Tweet includes a call to action. Prompt the AI system to do that task on lots of different Tweets. Then compare its outputs to your own decisions for each Tweet. Calculate a [performance metric](https://pmc.ncbi.nlm.nih.gov/articles/PMC8993826/) that describes how well the models’ outputs match your own decisions.
 
-## Findings
+## Research Findings
 
-## Conclusion
+### Will minor model updates affect performance?
+
+It's hard to say. We had 2 expert raters assess 260 US public health agency Tweets, using 6 items from the CDC Clear Communication. Example: does this material have a main message statement? Or: does this material include a behavioral recommendation?
+
+A 3rd rater resolved any conflicts to create our gold-standard data. We then prompted the November 2023 version of ChatGPT 3.5 to apply the same items to the same Tweets. We did the same with the January 2024 version.
+We used [MCC](https://pubmed.ncbi.nlm.nih.gov/36800973/) as our performance metric to describe how well each ChatGPT model aligned with our gold-standard data. For some tasks, both model versions were about the same. But for others there was a clear difference.
+
+
+```{r data05, echo=FALSE, fig.alt = "Grouped bar chart titled: Performance of ChatGPT 3.5 on CDC Clea r Communication Index Tasks. It shows the MCC value on different tasks for the 2023 Nov model version and the 2024 Jan model version.", fig.cap="Our results show no clear pattern in performance. This means even so-called minor updates to an AI model need to be tested like brand new models."}
+library(ggplot2)
+# Recreate our study day for illustration
+df <- data.frame(
+  Task = rep(c("Main Message", "Call to Action", 
+               "Active Voice","Common Words", 
+               "Behavior Recommendation", "Risk Info"), 
+             each = 2),
+  Model = rep(c("2023 Nov","2024 Jan"), times = 6),
+  MCC = c(0.60, 0.62,
+          0.50, 0.50,
+          0.16, 0.19,
+          0.30, 0.25,
+          0.72, 0.67,
+          0.37, 0.47)
+)
+
+# Plot
+ggplot(df, aes(x = Task, y = MCC, fill = Model)) +
+  geom_col(position = position_dodge(width = 0.8), color = "black", width = 0.7) +
+  scale_fill_manual(
+    values = c("2023 Nov"  = "black",
+               "2024 Jan" = "white")
+  ) +
+  coord_cartesian(ylim = c(0, 1)) +                # y-axis from 0 to 1
+  theme_minimal() +
+  labs(
+    title = "Performance of ChatGPT 3.5 on
+    CDC Clear Communication Index Tasks",
+    x     = element_blank(),
+    y     = "MCC Value",
+    fill  = "Model Version"
+  ) +
+  theme(
+    axis.text.x  = element_text(angle = 33, hjust = 1),  # tilt x labels if needed
+    plot.title   = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
+```
+
+### Will more advanced models perform better?
+
+Not necessarily. We prompted GPT 4-turbo and 4-o to apply the same items to the same Tweets as before. Again, we used MCC to describe how well each model aligned with our gold-standard data. The 4-o model is touted as the most advanced. But it did not always perform the best on these health communication tasks. Sometimes a GPT-3.5 model was the best. Sometimes the  4-turbo model was the best. There was no clear pattern.
+
+```{r data06, echo=FALSE, fig.alt = "Grouped bar chart titled: Performance of ChatGPT Models on CDC Clear Communication index Tasks. It shows the MCC value of a 2023 GPT3.5 model, 2024 3.5 model, 4-turbo model, and 4-o model across 6 tasks. There is no clear pattern of performance.", fig.cap="Our results show now clear pattern in performance. This means paing for a more advanced model can have mixed effects on health communication tasks."}
+library(ggpattern)
+
+# Data setup
+df <- data.frame(
+  Task2 = rep(c("Main Message", "Call to Action", 
+                "Active Voice","Common Words", 
+                "Behavior Recommendation", "Risk Info"), 
+              each = 4),
+  Model = rep(c("3.5 (2023 Nov)", "3.5 (2024 Jan)", "4-turbo", "4-o"), times = 6),
+  MCC = c(0.60, 0.62, 0.31, 0.50,
+          0.50, 0.50, 0.57, 0.52,
+          0.16, 0.19, 0.40, 0.43,
+          0.30, 0.25, 0.32, 0.19,
+          0.72, 0.67, 0.72, 0.76,
+          0.37, 0.47, 0.44, 0.44)
+)
+# Define consistent factor levels
+model_levels <- c("3.5 (2023 Nov)", "3.5 (2024 Jan)", "4-turbo", "4-o")
+
+# Set Model and Pattern to ordered factors
+df$Model <- factor(df$Model, levels = model_levels)
+
+# Define patterns as characters
+df$Pattern <- c("none", "none", "circle", "crosshatch")[match(df$Model,
+              c("3.5 (2023 Nov)", "3.5 (2024 Jan)", "4-turbo", "4-o"))]
+
+ggplot(df, aes(x = Task2, y = MCC, fill = Model, pattern = Pattern)) +
+  geom_col_pattern(position = position_dodge(width = 0.8), 
+                   color = "black", 
+                   width = 0.7,
+                   pattern_fill = "black", 
+                   pattern_angle = 45,
+                   pattern_density = 0.1,
+                   pattern_spacing = 0.05,
+                   pattern_key_scale_factor = 0.6) +
+  scale_fill_manual(
+    values = c("3.5 (2023 Nov)" = "black",
+               "3.5 (2024 Jan)" = "white",
+               "4-o" = "white",
+               "4-turbo" = "white")
+  ) +
+  scale_pattern_manual(
+    values = c("none" = "none",
+               "none" = "none",
+               "circle" = "circle",
+               "crosshatch" = "crosshatch")
+  ) +
+  guides(
+    fill = guide_legend(override.aes = list(
+      pattern = c("none", "none", "circle", "crosshatch"),
+      fill = c("black", "white", "white", "white"),
+      colour = "black"
+    )),
+    pattern = "none"  # suppress second legend
+  ) +
+  coord_cartesian(ylim = c(0, 1)) +
+  theme_minimal() +
+  labs(
+    title = "Performance of ChatGPT Models on
+    CDC Clear Communication Index Tasks",
+    x = element_blank(),
+    y = "MCC Value",
+    fill = "Model Version"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 33, hjust = 1),
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
+```
+
+## Recommendations
+
+###  For research 
+
+Our results cast doubt on how relevant tech industry benchmarks are for health communication. So, **test large language models against a custom gold-standard validation dataset**. Make your dataset so you can also draw insights from it without the use of AI.
+
+### For practice
+
+Our results show that generative AI does not work the same across tasks we might think are similar. Example: after training someone, you might expect them to spot calls to action about as well as behavioral recommendations. But that wasn't the case with ChatGPT. So, **apply ChatGPT to specific tasks you know well**. That way, you can judge its outputs over time without too much effort.
+
+### For policy
+
+Our results highlight how generative AI can be unpredictable. So, health organizations **should use generative AI  only if they can commit to funding a transparent, long-term evaluation plan**. This plan should cover the entire timeline of its expected use, across all use cases. Plain-language evaluation reports should be available to all communities served through these tools. 

@@ -1,22 +1,27 @@
 --- 
-title: "Artificial Intelligence & Health Literacy: Opportunities, Challenges, and Future Directions"
+title: "Artificial Intelligence & Health Literacy: Opportunities and Challenges"
 author: "Samuel R. Mendez"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-description: ""
-
+url: 'https\://health-literacy.ai'
+cover-image: "img/cover.png"
+favicon: "favicon.png"
+description: "How can artificial intelligence improve health literacy? Learn about AI in public health, organizational health literacy, and why narrow, well-tested applications matter. This site shares key lessons from Samuel Mendez’s Harvard dissertation on using AI to support clear, equitable health communication."
+bookdown::gitbook:
+  toc:
+    collapse: section
 ---
 # Overview
 
-Hi! I'm Samuel Mendez. I just got my PhD from the [Department of Social and Behavioral Sciences](https://hsph.harvard.edu/department/social-behavioral-sciences/) at Harvard's School of Public Health. I studied how we might use artificial intelligence (AI) to make health communication clearer. This site shares some lessons learned from my dissertation research.  I hope you find it useful!
+![Artificial Intelligence & Health Literacy](img/cover.jpg)\
+
+Hi! I'm Samuel Mendez. I just got my PhD from the [Department of Social and Behavioral Sciences](https://hsph.harvard.edu/department/social-behavioral-sciences/) at Harvard's School of Public Health. I studied how we might use artificial intelligence (AI) to make health communication clearer. This site shares some lessons learned from my dissertation research. More detailed info will come in published journal articles. But in the mean time, I hope you find this site useful!
 
 ## Calls to Action
 
 In public health, we're facing a chronic lack of funding, mass layoffs, and budget cuts. At the same time, we're facing risks like measles, bird flu, and COVID. Clear communication is more important now than ever before. And AI promises to help.
 
 To be clear, you *can* use AI to try to address communication problems. But it’s hard to know which problems it will actually solve. And it's even harder to predict the effects of model updates. That means you’ll need to put in more work to review and test AI outputs. And it still won’t fix root issues like a lack of public trust or political support.
-
-![brackets](https://placehold.co/600x300)\
 
 If you're working in health communication and planning to use AI:
 

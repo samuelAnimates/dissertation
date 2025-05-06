@@ -1,126 +1,31 @@
 # Conclusion
 
-```{r dependencies, echo=FALSE}
-require("gifski")
-require("DiagrammeR")
-require("Gmisc")
-require("glue")
-require("grid")
-require("htmlTable")
-require("magrittr")
-```
+Overall, my dissertation shows the promise and limits of using AI in public health. It's not an automatic fix. Like any public health tool, it has its limits.
+
+Chapter 2 covered supervised learning. It showed the value of fine-tuning AI for health communication tasks. You can build models for narrow goals, like assessing health literacy demands. That makes them easier to test. Open-source tools with clear documentation helped. They made the models easier to interpret and apply in public health settings.
+
+Chapter 3 covered generative AI. It showed how much work it takes to evaluate AI tools over time. And why that matters. Tools like ChatGPT are unpredictable. They’re not trained for your health literacy tasks. So you need clear, narrow use cases. You can fine-tune them. But that shifts the process back toward what we saw in Chapter 2. More work. Less magic.
+
+Chapter 4 introduced the 4-Factor framework to assess AI. It looks beyond performance. It adds flexibility, explainability, and fairness. These are key concerns in public health, which seeks to advance health equity and serve all communities.
 
 
+## Calls to Action
 
-```{r, animation.hook="gifski", echo=FALSE}
-for (i in 1:2) {
-  pie(c(i %% 2, 6), col = c('red', 'yellow'), labels = NA)
-}
-```
+If you're working in health communication and planning to use AI:
 
-```{r, echo=FALSE}
-#Credit to Max Gordon for the "Building a flowchart" tutorial on cran.r-project.org
-num_00_00_originalDataset <- 94032
-num_00_01_excl_keywords <- 46040
-num_00_02_eligible <- 47992
-num_01_00_excl_URLerrors <- 7
-num_01_00_excl_identical <- 2523
-num_01_01_excl_similar <- 10346
-num_01_03_eligible00 <- 35116
-num_01_02_excl_lengthLessThan87 <- 854
-num_01_02_excl_reuse <- 2598
-num_01_03_trainingValidationPool <- 31664
-num_02_00_sample <- 2600
-num_02_01_training <- 1900
-num_02_02_validation <- 300
-num_02_03_humanTraining <- 175
-num_02_04_humanExamples <- 225
-#Main vertically aligned boxes
-originalDataset <- boxGrob(glue("State public health",
-                                "Tweets in English,",
-                                "Jan. 1 to Dec. 11, 2020",
-                                "(n = {pop})",
-                                pop = num_00_00_originalDataset,
-                                .sep = "\n"),x=.2,y=1,bjust="top")
-dataPool <- boxGrob(glue("Training & validation
-Data Pool",
-                         "(n = {incl})",
-                         incl = num_01_03_trainingValidationPool,
-                         .sep = "\n"))
+* Apply AI to narrow tasks that you can track over time.
+* Hire health literacy experts to review AI outputs.
+* Weigh the long-term benefits of investing limited funds in community health workers instead.
 
-sample <-  boxGrob(glue("State- & time-
-stratified sample",
-                         "(n = {incl})",
-                         incl = num_02_00_sample,
-                         .sep = "\n"))
+## Let's Connect
 
-#Boxes for Tweets making up the sample
-grp_a <- boxGrob(glue("Model
-training data",
-                      "(n = {recr})",
-                      recr = num_02_01_training,
-                      .sep = "\n"))
-grp_b <- boxGrob(glue("Model
-validation data",
-                      "(n = {recr})",
-                      recr = num_02_02_validation,
-                      .sep = "\n"))
-grp_c <- boxGrob(glue("Human
-training data",
-                      "(n = {recr})",
-                      recr = num_02_03_humanTraining,
-                      .sep = "\n"))
-grp_d <- boxGrob(glue("Examples for
-human training",
-                      "(n = {recr})",
-                      recr = num_02_04_humanExamples,
-                      .sep = "\n"))
+As you might guess, I am online a lot. If you're looking for more info on public health, media, and technology:
 
-#Box for excluded Tweets
-excluded <- boxGrob(glue("Excluded:",
-                      "- COVID keywords absent (n = {tot})",
-                      "- Identical Tweets (n = {pop1})",
-                      "- Highly similar Tweets (n = {pop2})",
-                      "- URL errors (n = {pop3})",
-                      "- Length <87 characters (n = {pop4})",
-                      "- Reused text (n = {pop5})",
-                      pop1 = num_01_01_excl_similar,
-                      pop2 = num_01_00_excl_identical,
-                      pop3 = num_01_00_excl_URLerrors,
-                      pop4 = num_01_02_excl_lengthLessThan87,
-                      pop5 = num_01_02_excl_reuse,
-                      tot = num_00_01_excl_keywords,
-                      .sep = "\n"),just="left")
-#Create flowchart
-grid.newpage()
-vert <- alignHorizontal(reference=originalDataset,
-                        originalDataset=originalDataset,
-                        dataPool=dataPool,
-                        sample=sample,
-                        grps=grp_a,
-                        .position = "center") %>%
-  spreadVertical(.type="between")
-excluded <- moveBox(excluded,
-                    x = .6,
-                    y = coords(vert$originalDataset)$bottom - 
-                      distance(vert$originalDataset, vert$dataPool, half = TRUE, center = FALSE))
-grps <- alignVertical(reference = vert$grps,
-                      grp_a,grp_b,grp_c,grp_d) %>% spreadHorizontal()
-vert$grps <- NULL
+* Check out my [professional portfolio at samuelanimates.com](https://samuelanimates.com/)
+* Subscribe to my [Health Literacy Right Now newsletter](https://www.linkedin.com/newsletters/health-literacy-right-now-7110314537236463616/)
+* Use my [Public Health Starter Pack](https://bsky.app/starter-pack-short/EgMQxe9) to join a growing network on BlueSky
+* Follow my [Public Health 🛟 Feed](https://bsky.app/profile/samuelanimates.bsky.social/feed/aaaarylo7rb2e) on BlueSky
 
-#Draw connectors
-for (i in 1:(length(vert) - 1)) {
-  connectGrob(vert[[i]], vert[[i + 1]], type = "vert") %>%
-    print
-}
-connectGrob(vert$originalDataset, excluded, type = "L")
-for (i in 1:(length(grps))) {
-  connectGrob(vert$sample, grps[[i]], type = "N") %>%
-    print
-}
+## Acknowledgements
 
-# Print boxes
-vert
-excluded
-grps
-```
+This site does not contain the full breadth of research methods and findings of my dissertation. I will share those in published journal articles. In the mean time, I would like to acknowledge my study coauthors. My dissertation committee: Karen Emmons, Sebastian Munoz-Najar, and K. Vish Viswanath. Research assistants on these papers: Zichao Li and  Elissa Sherer.
