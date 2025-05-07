@@ -4,21 +4,25 @@ author: "Samuel R. Mendez"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 url: 'https\://health-literacy.ai'
-sharing:
-      facebook: false
-      github: true
-      twitter: false
-      linkedin: true
-      weibo: false
-      instapaper: false
-      vk: false
-      whatsapp: false
-cover-image: "img/cover.png"
-favicon: "favicon.png"
-description: "How can artificial intelligence improve health literacy? Learn about AI in public health, organizational health literacy, and why narrow, well-tested applications matter. This site shares key lessons from Samuel Mendez’s Harvard dissertation on using AI to support clear, equitable health communication."
-bookdown::gitbook:
-  toc:
-    collapse: section
+cover-image: "img/cover.jpg"
+github-repo: "samuelAnimates/dissertation"
+favicon: "favicon.ico"
+description: "What are the risks and benefits of using AI for health literacy? Learn about AI in public health, organizational health literacy, and why narrow, well-tested applications matter. This site shares key lessons from Samuel Mendez’s Harvard dissertation on using AI to support hea;lth communication."
+output:
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: section
+      sharing:
+        facebook: false
+        github: true
+        twitter: false
+        linkedin: true
+        weibo: false
+        instapaper: false
+        vk: false
+        whatsapp: false
+        all: ['linkedin', 'github']
 ---
 # Overview
 
